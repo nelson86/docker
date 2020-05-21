@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  db:
+    container_name: db
+    image: mongo:3.6.17
+    ports:
+      - "27017:27017"
+    volumes:
+      - $PWD/db:/data/db
+    restart: always
+    # networks:
+      # - my_net 
+    # environment:
+      # MONGO_INITDB_ROOT_USERNAME: root
+      # MONGO_INITDB_ROOT_PASSWORD: example
+  
+  angular:
+    container_name: angular1
+    image: angular1
+    ports:
+      - "3000:3000"
+    volumes:
+      - $PWD/app:/opt/app
+    depends_on:
+      - db
+    working_dir: /opt/app/cotizador
+    command: npm install
+    # networks:
+      # - my_net
+
+  # networks:
+    # my_net:
+
